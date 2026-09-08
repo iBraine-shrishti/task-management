@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Shell from "./components/layout/Shell";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import EmployeeDashboard from "./pages/employee/EmployeeDashboard";
-import ClientDashboard from "./pages/client/ClientDashboard";
+import ClientDirectory from "./pages/client/ClientDirectory";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ProjectDetails from "./pages/projects/ProjectDetails";
@@ -17,7 +17,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/admin" replace />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/employee" element={<EmployeeDashboard />} />
-        <Route path="/client" element={<ClientDashboard />} />
+        <Route path="/admin/clients" element={<ClientDirectory />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
         <Route path="/assets" element={<Assets />} />
         <Route path="/notifications" element={<Notifications />} />
