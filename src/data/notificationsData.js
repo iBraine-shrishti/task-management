@@ -1,0 +1,88 @@
+// src/data/notificationsData.js
+
+export const notificationsData = [
+  {
+    id: 1,
+    text: "4 new design components added to the Figma system.",
+    bgColor: "bg-[#EBEBFF] border-[#DCDCFF]",
+    textColor: "text-[#4A4AC2]",
+    icon: "Layers",
+  },
+  {
+    id: 2,
+    text: "New campaign creatives approved by Reebok.",
+    bgColor: "bg-[#FFF8E7] border-[#FFEEC2]",
+    textColor: "text-[#B38318]",
+    icon: "ThumbsUp",
+  },
+  {
+    id: 3,
+    text: "Urgent: 3 deliverables pending review for Amazon.",
+    bgColor: "bg-[#FFEBEB] border-[#FFD6D6]",
+    textColor: "text-[#C24A4A]",
+    icon: "Package",
+  },
+  {
+    id: 4,
+    text: "Client meeting scheduled with GRT Jewellers at 4:00 PM.",
+    bgColor: "bg-[#E8F8F5] border-[#C8F2EA]",
+    textColor: "text-[#2B8A78]",
+    icon: "Utensils",
+  },
+  {
+    id: 5,
+    text: "Scheduled server maintenance at 11:00 PM today.",
+    bgColor: "bg-[#F3E8FF] border-[#E9D5FF]",
+    textColor: "text-[#7E22CE]",
+    icon: "Zap",
+  },
+  {
+    id: 6,
+    text: "New onboarding survey submitted by The Kollektor.",
+    bgColor: "bg-[#EBF5FF] border-[#D6E8FF]",
+    textColor: "text-[#1E6091]",
+    icon: "FileUp",
+  },
+  {
+    id: 7,
+    text: "Shrishti updated the priority for Aster Finance SEO tasks.",
+    bgColor: "bg-[#FFF0F5] border-[#FFD6E8]",
+    textColor: "text-[#B8295F]",
+    icon: "Flag",
+  },
+  {
+    id: 8,
+    text: "New payment invoice generated for Nova Foods.",
+    bgColor: "bg-[#E8F8F5] border-[#C8F2EA]",
+    textColor: "text-[#2B8A78]",
+    icon: "ThumbsUp",
+  },
+  {
+    id: 9,
+    text: "3 tasks due within the next 24 hours.",
+    bgColor: "bg-[#FFEBEB] border-[#FFD6D6]",
+    textColor: "text-[#C24A4A]",
+    icon: "Package",
+  },
+  {
+    id: 10,
+    text: "New employee assigned to Website + CRO team.",
+    bgColor: "bg-[#EBEBFF] border-[#DCDCFF]",
+    textColor: "text-[#4A4AC2]",
+    icon: "Layers",
+  },
+  {
+    id: 11,
+    text: "Google Ads account integration synced successfully.",
+    bgColor: "bg-[#FFF8E7] border-[#FFEEC2]",
+    textColor: "text-[#B38318]",
+    icon: "Zap",
+  },
+  {
+    id: 12,
+    text: "Monthly revenue report ready for download.",
+    bgColor: "bg-[#F3E8FF] border-[#E9D5FF]",
+    textColor: "text-[#7E22CE]",
+    icon: "Layers",
+  },
+];
