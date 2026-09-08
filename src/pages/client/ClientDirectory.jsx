@@ -7,6 +7,7 @@ import {
   MessageSquare,
   ChevronLeft,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 
 import ClientStatCard from "../../components/clients/ClientStatCard";
@@ -24,37 +25,43 @@ export default function ClientDirectory() {
       {/* HEADER */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-            Client Directory
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-black tracking-tight text-gray-900">
+              Client Directory
+            </h1>
+            <span className="flex items-center gap-1 rounded-full bg-indigo-100 px-3 py-1 text-xs font-black text-indigo-700">
+              <Zap size={12} className="fill-indigo-700" /> Live Updates
+            </span>
+          </div>
           <p className="mt-1 text-sm font-medium text-gray-500">
             Manage your agency's client relationships, projects, and high-level
             financials.
           </p>
         </div>
+
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-gray-700 transition hover:bg-gray-50 shadow-xs">
-            <Filter size={16} /> Filter
+          <button className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-gray-700 shadow-xs transition hover:border-gray-300 hover:bg-gray-50">
+            <Filter size={16} className="text-gray-500" /> Filter
           </button>
-          <button className="flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-blue-700 shadow-xs">
-            <Plus size={16} /> Add New Client
+          <button className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-200 transition hover:opacity-95">
+            <Plus size={18} /> Add New Client
           </button>
         </div>
       </div>
 
-      {/* STAT CARDS */}
+      {/* VIBRANT STAT CARDS */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {clientMetrics.map((metric, idx) => (
           <ClientStatCard key={idx} {...metric} />
         ))}
       </div>
 
-      {/* CLIENT TABLE */}
+      {/* CLIENT TABLE CONTAINER */}
       <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xs">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full border-collapse text-left">
             <thead>
-              <tr className="border-b border-gray-100 bg-gray-50/50 text-[11px] font-bold tracking-wider text-gray-400 uppercase">
+              <tr className="border-b border-gray-100 bg-slate-50/80 text-[11px] font-black tracking-wider text-gray-400 uppercase">
                 <th className="py-4 pl-6 pr-3">CLIENT NAME</th>
                 <th className="px-3 py-4">INDUSTRY</th>
                 <th className="px-3 py-4">ONGOING PROJECTS</th>
@@ -73,16 +80,16 @@ export default function ClientDirectory() {
         </div>
 
         {/* PAGINATION */}
-        <div className="flex items-center justify-between border-t border-gray-100 px-6 py-4">
-          <p className="text-sm text-gray-500">
-            Showing <span className="font-semibold text-gray-900">1-4</span> of{" "}
-            <span className="font-semibold text-gray-900">124</span> clients
+        <div className="flex items-center justify-between border-t border-gray-100 bg-slate-50/30 px-6 py-4">
+          <p className="text-sm font-medium text-gray-500">
+            Showing <span className="font-extrabold text-gray-900">1-4</span> of{" "}
+            <span className="font-extrabold text-gray-900">124</span> clients
           </p>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-1 rounded-xl border border-gray-200 px-3 py-1.5 text-xs font-bold text-gray-600 hover:bg-gray-50">
+            <button className="flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-xs font-bold text-gray-600 hover:bg-gray-50 shadow-2xs">
               <ChevronLeft size={14} /> Previous
             </button>
-            <button className="flex items-center gap-1 rounded-xl border border-gray-200 px-3 py-1.5 text-xs font-bold text-gray-600 hover:bg-gray-50">
+            <button className="flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-xs font-bold text-gray-600 hover:bg-gray-50 shadow-2xs">
               Next <ChevronRight size={14} />
             </button>
           </div>
@@ -91,30 +98,42 @@ export default function ClientDirectory() {
 
       {/* BOTTOM SECTION */}
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* GLOBAL ACTIVITY */}
+        {/* GLOBAL CLIENT ACTIVITY */}
         <div className="lg:col-span-2 rounded-2xl border border-gray-100 bg-white p-6 shadow-xs">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-extrabold text-gray-900">
-              Global Client Activity
-            </h2>
-            <button className="text-xs font-bold text-blue-600 hover:text-blue-700">
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-black text-gray-900">
+                Global Client Activity
+              </h2>
+              <p className="text-xs text-gray-400 font-medium">
+                Real-time actions from client accounts
+              </p>
+            </div>
+            <button className="rounded-lg bg-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-600 hover:bg-indigo-100 transition">
               View all
             </button>
           </div>
-          <div className="space-y-6">
+
+          <div className="space-y-5">
             {globalActivities.map((act) => (
-              <div key={act.id} className="flex items-start gap-4">
+              <div
+                key={act.id}
+                className="flex items-start gap-4 rounded-xl border border-transparent p-3 transition hover:border-gray-100 hover:bg-slate-50/80"
+              >
                 <div
-                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${act.iconBg}`}
+                  className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${act.iconBg}`}
                 >
-                  {act.type === "proposal" && <FileText size={18} />}
-                  {act.type === "milestone" && <CheckCircle2 size={18} />}
-                  {act.type === "survey" && <MessageSquare size={18} />}
+                  {act.type === "proposal" && <FileText size={20} />}
+                  {act.type === "milestone" && <CheckCircle2 size={20} />}
+                  {act.type === "survey" && <MessageSquare size={20} />}
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-gray-900">{act.title}</p>
-                  <p className="mt-1 text-xs font-medium text-gray-400">
-                    {act.time} • {act.category}
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-gray-900 leading-snug">
+                    {act.title}
+                  </p>
+                  <p className="mt-1 text-xs font-semibold text-gray-400">
+                    <span className="text-gray-600">{act.time}</span> •{" "}
+                    {act.category}
                   </p>
                 </div>
               </div>
@@ -124,28 +143,32 @@ export default function ClientDirectory() {
 
         {/* STRATEGIC INSIGHTS */}
         <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs">
-          <h2 className="text-lg font-extrabold text-gray-900 mb-6">
+          <h2 className="text-lg font-black text-gray-900 mb-1">
             Strategic Insights
           </h2>
+          <p className="text-xs text-gray-400 font-medium mb-6">
+            AI-driven client opportunities & warnings
+          </p>
+
           <div className="space-y-4">
             {strategicInsights.map((insight) => (
               <div
                 key={insight.id}
-                className={`rounded-2xl border p-4 ${insight.cardStyle}`}
+                className={`rounded-2xl border p-5 transition hover:shadow-md ${insight.cardStyle}`}
               >
                 <span
-                  className={`text-[10px] font-extrabold tracking-wider ${insight.categoryStyle}`}
+                  className={`inline-block rounded-md px-2.5 py-0.5 text-[10px] font-black tracking-wider ${insight.categoryStyle}`}
                 >
                   {insight.category}
                 </span>
-                <h3 className="mt-1 font-extrabold text-gray-900">
+                <h3 className="mt-2 text-base font-black text-gray-900">
                   {insight.clientName}
                 </h3>
-                <p className="mt-2 text-xs text-gray-600 leading-relaxed">
+                <p className="mt-2 text-xs font-medium text-gray-600 leading-relaxed">
                   {insight.description}
                 </p>
                 <button
-                  className={`mt-3 text-xs font-extrabold transition ${insight.actionStyle}`}
+                  className={`mt-4 w-full rounded-xl py-2 text-xs font-black transition ${insight.actionStyle}`}
                 >
                   {insight.actionText}
                 </button>

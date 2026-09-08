@@ -5,7 +5,7 @@ import EmployeeDashboard from "./pages/employee/EmployeeDashboard";
 import ClientDirectory from "./pages/client/ClientDirectory";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import ProjectDetails from "./pages/projects/ProjectDetails";
+import ProjectsPage from "./pages/projects/ProjectsPage";
 import Assets from "./pages/assets/Assets";
 import Notifications from "./pages/notifications/Notifications";
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/employee" element={<EmployeeDashboard />} />
         <Route path="/admin/clients" element={<ClientDirectory />} />
-        <Route path="/projects/:id" element={<ProjectDetails />} />
+        <Route path="/projects/:id" element={<ProjectsPage />} />
         <Route path="/assets" element={<Assets />} />
         <Route path="/notifications" element={<Notifications />} />
       </Route>
