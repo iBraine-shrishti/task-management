@@ -8,6 +8,8 @@ import Register from "./pages/auth/Register";
 import ProjectsPage from "./pages/projects/ProjectsPage";
 import Assets from "./pages/assets/Assets";
 import Notifications from "./pages/notifications/Notifications";
+import ProposalBuilder from "./components/proposals/ProposalBuilder";
+
 export default function App() {
   return (
     <Routes>
@@ -21,6 +23,7 @@ export default function App() {
         <Route path="/projects/:id" element={<ProjectsPage />} />
         <Route path="/assets" element={<Assets />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/proposals" element={<ProposalBuilder />} />
       </Route>
     </Routes>
   );

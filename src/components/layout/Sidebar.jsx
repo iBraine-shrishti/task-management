@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Layers3,
   Link2,
+  FileText,
 } from "lucide-react";
 import Logo from "../brand/Logo";
 
@@ -21,6 +22,7 @@ const groups = [
     items: [
       ["Dashboard", "/admin", LayoutDashboard],
       ["Clients", "/admin/clients", Users],
+      ["Proposals", "/proposals", FileText],
       ["Projects", "/projects/p1", FolderKanban],
       ["Employees", "/employee", UserRoundCog],
       ["Groups", "/admin/groups", Layers3],
