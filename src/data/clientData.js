@@ -52,6 +52,7 @@ export const clientsList = [
     contactAvatar: "SJ",
     avatarBg: "bg-gradient-to-tr from-purple-500 to-indigo-500 text-white",
     iconBg: "bg-indigo-500 text-white",
+    proposalUrl: "#proposal-nebula",
   },
   {
     id: 2,
@@ -67,6 +68,7 @@ export const clientsList = [
     contactAvatar: "MB",
     avatarBg: "bg-gradient-to-tr from-blue-500 to-cyan-500 text-white",
     iconBg: "bg-amber-500 text-white",
+    proposalUrl: "#proposal-vertex",
   },
   {
     id: 3,
@@ -82,6 +84,7 @@ export const clientsList = [
     contactAvatar: "EL",
     avatarBg: "bg-gradient-to-tr from-pink-500 to-rose-500 text-white",
     iconBg: "bg-emerald-500 text-white",
+    proposalUrl: "#proposal-horizon",
   },
   {
     id: 4,
@@ -97,6 +100,55 @@ export const clientsList = [
     contactAvatar: "DW",
     avatarBg: "bg-gradient-to-tr from-slate-600 to-slate-800 text-white",
     iconBg: "bg-gray-400 text-white",
+    proposalUrl: "#proposal-zion",
+  },
+  {
+    id: 5,
+    name: "Aura Skincare Inc.",
+    industry: "Health & Beauty",
+    ongoingProjects: "3 Active",
+    projectBadgeStyle:
+      "bg-purple-100 text-purple-800 font-bold border border-purple-200",
+    totalRevenue: "$210,000",
+    status: "ACTIVE",
+    statusStyle: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    contactName: "Chloe Vance",
+    contactAvatar: "CV",
+    avatarBg: "bg-gradient-to-tr from-purple-400 to-pink-500 text-white",
+    iconBg: "bg-purple-500 text-white",
+    proposalUrl: "#proposal-aura",
+  },
+  {
+    id: 6,
+    name: "Quantum Dynamics",
+    industry: "Artificial Intelligence",
+    ongoingProjects: "2 Pending",
+    projectBadgeStyle:
+      "bg-amber-100 text-amber-800 font-bold border border-amber-200",
+    totalRevenue: "$340,000",
+    status: "LEAD",
+    statusStyle: "bg-amber-100 text-amber-800 border-amber-200",
+    contactName: "Dr. Aris Thorne",
+    contactAvatar: "AT",
+    avatarBg: "bg-gradient-to-tr from-teal-400 to-emerald-600 text-white",
+    iconBg: "bg-teal-500 text-white",
+    proposalUrl: "#proposal-quantum",
+  },
+  {
+    id: 7,
+    name: "Solaris Energy",
+    industry: "Clean Energy",
+    ongoingProjects: "5 Active",
+    projectBadgeStyle:
+      "bg-emerald-100 text-emerald-800 font-bold border border-emerald-200",
+    totalRevenue: "$910,000",
+    status: "ACTIVE",
+    statusStyle: "bg-emerald-100 text-emerald-800 border-emerald-200",
+    contactName: "Maya Lin",
+    contactAvatar: "ML",
+    avatarBg: "bg-gradient-to-tr from-amber-400 to-orange-500 text-white",
+    iconBg: "bg-amber-500 text-white",
+    proposalUrl: "#proposal-solaris",
   },
 ];
 
@@ -106,7 +158,8 @@ export const globalActivities = [
     type: "proposal",
     title: "Proposal Generated for Horizon Retail Group by Elena Lopez.",
     time: "2 hours ago",
-    category: "Marketing Strategy 2024",
+    category: "Marketing Strategy 2026",
+    proposalUrl: "#proposal-horizon",
     iconBg:
       "bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-md shadow-blue-200",
   },
@@ -114,18 +167,30 @@ export const globalActivities = [
     id: 2,
     type: "milestone",
     title:
-      "Project Milestone Reached: Nebula Cloud - Q3 Security Audit Completed.",
+      "Project Milestone Reached: Nebula Cloud - Security Audit Completed.",
     time: "5 hours ago",
     category: "Infrastructure Team",
+    proposalUrl: "#proposal-nebula",
     iconBg:
       "bg-gradient-to-br from-emerald-400 to-teal-600 text-white shadow-md shadow-teal-200",
   },
   {
     id: 3,
+    type: "proposal",
+    title: "New Retainer Proposal submitted to Aura Skincare Inc.",
+    time: "6 hours ago",
+    category: "Brand Refresh",
+    proposalUrl: "#proposal-aura",
+    iconBg:
+      "bg-gradient-to-br from-purple-500 to-pink-600 text-white shadow-md shadow-purple-200",
+  },
+  {
+    id: 4,
     type: "survey",
     title: "New Survey Response received from Marcus Bell (Vertex Auto).",
     time: "Yesterday",
     category: "Customer Satisfaction Survey",
+    proposalUrl: "#proposal-vertex",
     iconBg:
       "bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md shadow-orange-200",
   },

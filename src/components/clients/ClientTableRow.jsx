@@ -1,10 +1,14 @@
 import React from "react";
-import { MoreHorizontal, Building2 } from "lucide-react";
+import {
+  MoreHorizontal,
+  Building2,
+  FileText,
+  ExternalLink,
+} from "lucide-react";
 
-export default function ClientTableRow({ client }) {
+export default function ClientTableRow({ client, onViewProposal }) {
   return (
     <tr className="border-b border-gray-100 transition-colors duration-200 hover:bg-indigo-50/30">
-      {/* CLIENT NAME */}
       <td className="py-4 pl-6 pr-3">
         <div className="flex items-center gap-3">
           <div
@@ -23,14 +27,12 @@ export default function ClientTableRow({ client }) {
         </div>
       </td>
 
-      {/* INDUSTRY */}
       <td className="px-3 py-4 text-sm font-semibold text-gray-600">
         <span className="inline-block rounded-lg bg-gray-100/80 px-2.5 py-1 text-xs font-bold text-gray-700">
           {client.industry}
         </span>
       </td>
 
-      {/* ONGOING PROJECTS */}
       <td className="px-3 py-4">
         <span
           className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs shadow-2xs ${client.projectBadgeStyle}`}
@@ -40,12 +42,10 @@ export default function ClientTableRow({ client }) {
         </span>
       </td>
 
-      {/* TOTAL REVENUE */}
       <td className="px-3 py-4 font-black text-gray-900 text-base">
         {client.totalRevenue}
       </td>
 
-      {/* STATUS */}
       <td className="px-3 py-4">
         <span
           className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] font-black tracking-wider uppercase ${client.statusStyle}`}
@@ -63,7 +63,6 @@ export default function ClientTableRow({ client }) {
         </span>
       </td>
 
-      {/* PRIMARY CONTACT */}
       <td className="px-3 py-4">
         <div className="flex items-center gap-2.5">
           <div
@@ -77,11 +76,21 @@ export default function ClientTableRow({ client }) {
         </div>
       </td>
 
-      {/* ACTIONS */}
+      {/* PROPOSAL & ACTIONS */}
       <td className="py-4 pl-3 pr-6 text-right">
-        <button className="rounded-lg p-1.5 text-gray-400 transition hover:bg-indigo-50 hover:text-indigo-600">
-          <MoreHorizontal size={20} />
-        </button>
+        <div className="flex items-center justify-end gap-2">
+          <button
+            onClick={() => onViewProposal(client)}
+            className="flex items-center gap-1 rounded-xl bg-indigo-50 border border-indigo-200 px-3 py-1.5 text-xs font-black text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-2xs cursor-pointer"
+          >
+            <FileText size={14} />
+            <span>Proposal</span>
+            <ExternalLink size={12} className="opacity-70" />
+          </button>
+          <button className="rounded-lg p-1.5 text-gray-400 transition hover:bg-indigo-50 hover:text-indigo-600">
+            <MoreHorizontal size={18} />
+          </button>
+        </div>
       </td>
     </tr>
   );
