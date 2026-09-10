@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Layers, Upload } from "lucide-react";
 import { MOCK_CLIENT_VAULTS } from "../../data/agencyVaultData";
-import { useLocation } from "react-router-dom";
 import Sidebar from "../../components/dataVaults/Sidebar";
 import HeaderNav from "../../components/dataVaults/HeaderNav";
 import TableView from "../../components/dataVaults/TableView";
@@ -9,47 +8,6 @@ import KanbanView from "../../components/dataVaults/KanbanView";
 import DocView from "../../components/dataVaults/DocView";
 
 export default function DataVaultsWorkspace({ activeVaultRoute = "all" }) {
-  // Add this helper function at the top of DataVaultsWorkspace.jsx
-  const location = useLocation();
-  const activeVaultRoute = location.pathname.includes("/assets/images")
-    ? "images"
-    : location.pathname.includes("/assets/docs")
-      ? "docs"
-      : location.pathname.includes("/assets/archives")
-        ? "archives"
-        : location.pathname.includes("/assets/media-kits")
-          ? "media-kits"
-          : location.pathname.includes("/vaults/intake")
-            ? "intake"
-            : "all";
-  function filterVaultRecords(records = [], activeVaultRoute) {
-    if (activeVaultRoute === "all") return records;
-
-    switch (activeVaultRoute) {
-      case "images":
-        return records.filter(
-          (r) =>
-            r.file_type === "IMAGE" ||
-            r.extension?.match(/\.(png|jpg|svg|webp)$/i),
-        );
-      case "docs":
-        return records.filter(
-          (r) =>
-            r.file_type === "DOCUMENT" ||
-            r.extension?.match(/\.(pdf|docx|xlsx)$/i),
-        );
-      case "archives":
-        return records.filter(
-          (r) =>
-            r.file_type === "ARCHIVE" ||
-            r.extension?.match(/\.(zip|rar|tar)$/i),
-        );
-      case "media-kits":
-        return records.filter((r) => r.file_type === "MEDIA_KIT");
-      default:
-        return records;
-    }
-  }
   const [selectedClientId, setSelectedClientId] = useState(
     MOCK_CLIENT_VAULTS[0].client_id,
   );
