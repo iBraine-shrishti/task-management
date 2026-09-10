@@ -40,14 +40,12 @@ const groups = [
     ],
   },
   {
-    label: "Data Vaults",
+    label: "Manage",
     items: [
-      ["Vault Master Hub", "/vaults", Database],
-      ["Inbound Intake Vault", "/admin/vaults/intake", ShieldCheck],
-      ["Image Assets (.PNG/.SVG)", "/admin/vaults/assets/images", ImageIcon],
-      ["Document Vault (.PDF/.DOCX)", "/admin/vaults/assets/docs", FileCode],
-      ["Archive Vault (.ZIP/.RAR)", "/admin/vaults/assets/archives", Archive],
-      ["Media Kits & PR", "/admin/vaults/assets/media-kits", Paperclip],
+      ["Assets", "/assets", Boxes],
+      ["Platforms", "/admin/platforms", Link2],
+      ["Notifications", "/notifications", Bell],
+      ["Reports", "/admin/reports", BarChart3],
     ],
   },
   {
@@ -57,15 +55,6 @@ const groups = [
       ["SEO & Search", "/admin/services/seo", Search],
       ["Web & UX/UI Design", "/admin/services/web-design", Monitor],
       ["Creative & Content", "/admin/services/creative", Palette],
-    ],
-  },
-  {
-    label: "Manage",
-    items: [
-      ["Assets", "/assets", Boxes],
-      ["Platforms", "/admin/platforms", Link2],
-      ["Notifications", "/notifications", Bell],
-      ["Reports", "/admin/reports", BarChart3],
     ],
   },
 ];
