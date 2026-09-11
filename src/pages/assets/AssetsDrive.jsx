@@ -16,7 +16,6 @@ import {
 import { initialDriveData } from "../../data/initialDriveData.js";
 import Breadcrumbs from "../../components/assets/Breadcrumbs.jsx";
 import FolderCard from "../../components/assets/FolderCard.jsx";
-import FileRow from "../../components/assets/FileRow.jsx";
 import CreateFolderModal from "../../components/assets/CreateFolderModal.jsx";
 
 export default function AssetsDrive({ userRole = "ADMIN" }) {
@@ -30,10 +29,7 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
   const [toastMessage, setToastMessage] = useState(null);
   const [isWorkspaceDragOver, setIsWorkspaceDragOver] = useState(false);
 
-  // Checkbox selection state
   const [selectedFolderIds, setSelectedFolderIds] = useState([]);
-
-  // Clipboard state for Copy & Paste
   const [copiedFolders, setCopiedFolders] = useState([]);
 
   const mainFileInputRef = useRef(null);
@@ -43,10 +39,8 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Find Current Active Folder
   const getCurrentFolder = () => {
-    if (path.length === 0)
-      return { id: "ROOT", name: "Assets Drive", children: tree };
+    if (path.length === 0) return { id: "ROOT", name: "ROOT", children: tree };
     let current = { children: tree };
     for (const id of path) {
       current = current.children?.find((item) => item.id === id);
@@ -57,7 +51,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
 
   const currentFolder = getCurrentFolder();
 
-  // Selection Checkbox Logic
   const handleToggleSelect = (folderId) => {
     setSelectedFolderIds((prev) =>
       prev.includes(folderId)
@@ -78,7 +71,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
 
   const handleClearSelection = () => setSelectedFolderIds([]);
 
-  // Copy & Paste Handlers
   const handleCopySingle = (folder) => {
     setCopiedFolders([folder]);
     triggerToast(
@@ -99,7 +91,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
   const handlePaste = () => {
     if (copiedFolders.length === 0) return;
 
-    // Helper to deeply clone folder and assign fresh IDs
     const cloneFolderDeep = (folderNode) => {
       return {
         ...folderNode,
@@ -128,7 +119,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
     setCopiedFolders([]);
   };
 
-  // Flattened List for Quick Selector
   const getAllFoldersFlattened = (nodes = tree, prefix = "") => {
     let list = [];
     for (const node of nodes) {
@@ -166,7 +156,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
     if (foundPath) setPath(foundPath);
   };
 
-  // Tree Helper
   const updateTreeAtFolder = (folderId, updateFn) => {
     const updateRecursive = (nodes) => {
       return nodes.map((node) => {
@@ -180,8 +169,10 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
     setTree((prev) => updateRecursive(prev));
   };
 
-  // Internal Drag & Drop Move Folder Handler
+  // Drag & drop logic to move items anywhere (Root or nested folder)
   const handleMoveFolder = (sourceFolderId, targetFolderId) => {
+    if (sourceFolderId === targetFolderId) return;
+
     let folderToMove = null;
 
     const removeRecursive = (nodes) => {
@@ -199,6 +190,12 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
 
     const newTree = removeRecursive(JSON.parse(JSON.stringify(tree)));
     if (!folderToMove) return;
+
+    if (targetFolderId === "ROOT") {
+      setTree([...newTree, folderToMove]);
+      triggerToast(`Moved folder to "ROOT"`);
+      return;
+    }
 
     const targetFolderObj = getAllFoldersFlattened().find(
       (f) => f.id === targetFolderId,
@@ -225,7 +222,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
     );
   };
 
-  // Workspace Drag & Drop (Third-Party Desktop Files)
   const handleWorkspaceDrop = (e) => {
     e.preventDefault();
     setIsWorkspaceDragOver(false);
@@ -313,6 +309,15 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
     setPath(path.slice(0, -1));
   };
 
+  const handleNavigateBreadcrumb = (index) => {
+    setSelectedFolderIds([]);
+    if (index === -1) {
+      setPath([]);
+    } else {
+      setPath(path.slice(0, index + 1));
+    }
+  };
+
   const isReadOnly =
     userRole === "CLIENT" && currentFolder?.type === "FOR_CLIENT";
   const allFlattenedFolders = getAllFoldersFlattened();
@@ -334,7 +339,6 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
           : ""
       }`}
     >
-      {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-xl shadow-xl font-medium text-xs animate-bounce">
           <CheckCircle2 size={18} className="text-emerald-400" />
@@ -342,9 +346,8 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
         </div>
       )}
 
-      {/* Floating Clipboard Bar (Paste Bar) */}
       {copiedFolders.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-blue-900 text-white rounded-2xl shadow-2xl border border-blue-700 animate-slide-up">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-4 py-3 bg-blue-900 text-white rounded-2xl shadow-2xl border border-blue-700">
           <ClipboardCheck size={18} className="text-emerald-400" />
           <span className="text-xs font-medium">
             {copiedFolders.length} folder(s) in Clipboard
@@ -365,86 +368,96 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
         </div>
       )}
 
-      {/* Top Controls Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-        <div className="flex items-center gap-3">
-          {path.length > 0 && (
-            <button
-              onClick={navigateUp}
-              className="flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100 transition shadow-xs"
+      {/* Top Controls & Breadcrumbs Bar */}
+      <div className="flex flex-col gap-3 pb-4 border-b border-slate-200">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex items-center gap-3 flex-wrap">
+            {path.length > 0 && (
+              <button
+                onClick={navigateUp}
+                className="flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100 transition shadow-xs"
+              >
+                <ArrowLeft size={14} />
+                <span>Back</span>
+              </button>
+            )}
+
+            {!isReadOnly && (
+              <>
+                <button
+                  onClick={() => setIsCreateModalOpen(true)}
+                  className="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100 transition shadow-xs cursor-pointer"
+                >
+                  <FolderPlus size={15} className="text-blue-600" />
+                  <span>New Folder</span>
+                </button>
+
+                <button
+                  onClick={() => mainFileInputRef.current?.click()}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition shadow-xs cursor-pointer"
+                >
+                  <Upload size={15} />
+                  <span>Upload</span>
+                </button>
+
+                <input
+                  type="file"
+                  ref={mainFileInputRef}
+                  onChange={(e) => {
+                    if (e.target.files?.length) {
+                      triggerToast(
+                        `${e.target.files.length} file(s) uploaded into "${currentFolder.name}"`,
+                      );
+                    }
+                    e.target.value = "";
+                  }}
+                  multiple
+                  className="hidden"
+                />
+              </>
+            )}
+
+            {isReadOnly && (
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg text-xs font-semibold">
+                <Lock size={14} />
+                <span>Read-Only Directory</span>
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 shadow-xs w-full lg:w-auto">
+            <Compass size={15} className="text-blue-600 shrink-0" />
+            <span className="text-xs font-semibold text-slate-500 shrink-0">
+              Quick Path:
+            </span>
+            <select
+              value={currentFolder.id}
+              onChange={handleQuickJump}
+              className="text-xs font-medium text-slate-800 bg-transparent focus:outline-none cursor-pointer w-full"
             >
-              <ArrowLeft size={14} />
-              <span>Back</span>
-            </button>
-          )}
-
-          {!isReadOnly && (
-            <>
-              <button
-                onClick={() => setIsCreateModalOpen(true)}
-                className="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100 transition shadow-xs"
-              >
-                <FolderPlus size={15} className="text-blue-600" />
-                <span>New Folder</span>
-              </button>
-
-              <button
-                onClick={() => mainFileInputRef.current?.click()}
-                className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition shadow-xs"
-              >
-                <Upload size={15} />
-                <span>Upload</span>
-              </button>
-
-              <input
-                type="file"
-                ref={mainFileInputRef}
-                onChange={(e) => {
-                  if (e.target.files?.length) {
-                    triggerToast(
-                      `${e.target.files.length} file(s) uploaded into "${currentFolder.name}"`,
-                    );
-                  }
-                  e.target.value = "";
-                }}
-                multiple
-                className="hidden"
-              />
-            </>
-          )}
-
-          {isReadOnly && (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg text-xs font-semibold">
-              <Lock size={14} />
-              <span>Read-Only Directory</span>
-            </div>
-          )}
+              <option value="ROOT">ROOT (Assets Drive)</option>
+              {allFlattenedFolders.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
-        {/* Quick Path Selector Dropdown */}
-        <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 shadow-xs">
-          <Compass size={15} className="text-blue-600 shrink-0" />
-          <span className="text-xs font-semibold text-slate-500 shrink-0">
-            Quick Path:
-          </span>
-          <select
-            value={currentFolder.id}
-            onChange={handleQuickJump}
-            className="text-xs font-medium text-slate-800 bg-transparent focus:outline-none cursor-pointer max-w-[220px] truncate"
-          >
-            <option value="ROOT">Assets Drive (Root)</option>
-            {allFlattenedFolders.map((f) => (
-              <option key={f.id} value={f.id}>
-                {f.name}
-              </option>
-            ))}
-          </select>
+        {/* Dynamic Header Path with Drop Support */}
+        <div className="pt-2">
+          <Breadcrumbs
+            tree={tree}
+            path={path}
+            onNavigateBreadcrumb={handleNavigateBreadcrumb}
+            onMoveFolder={handleMoveFolder}
+          />
         </div>
       </div>
 
-      {/* BATCH SELECTION TOOLBAR */}
       {selectedFolderIds.length > 0 && (
-        <div className="mt-4 flex items-center justify-between p-3 bg-blue-900 text-white rounded-xl shadow-lg animate-fade-in">
+        <div className="mt-4 flex items-center justify-between p-3 bg-blue-900 text-white rounded-xl shadow-lg">
           <div className="flex items-center gap-3">
             <button
               onClick={handleClearSelection}
@@ -460,7 +473,7 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
           <div className="flex items-center gap-2">
             <button
               onClick={handleSelectAll}
-              className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-xs font-medium transition cursor-pointer"
             >
               <CheckSquare size={13} />
               <span>
@@ -473,7 +486,7 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
 
             <button
               onClick={handleBatchCopy}
-              className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-xs font-medium transition cursor-pointer"
             >
               <Copy size={13} />
               <span>Copy Selected</span>
@@ -485,7 +498,7 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
                   `Downloading ${selectedFolderIds.length} folder(s)...`,
                 )
               }
-              className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-800 hover:bg-blue-700 rounded-lg text-xs font-medium transition cursor-pointer"
             >
               <Download size={13} />
               <span>Download</span>
@@ -493,7 +506,7 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
 
             <button
               onClick={handleBatchDelete}
-              className="flex items-center gap-1 px-2.5 py-1.5 bg-red-600 hover:bg-red-700 rounded-lg text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-red-600 hover:bg-red-700 rounded-lg text-xs font-medium transition cursor-pointer"
             >
               <Trash2 size={13} />
               <span>Delete</span>
@@ -532,12 +545,12 @@ export default function AssetsDrive({ userRole = "ADMIN" }) {
           </div>
         ) : (
           <div className="p-12 bg-white/50 border border-dashed border-slate-300 rounded-2xl text-center text-slate-400 text-xs">
-            Drag files from your computer or drop folders here to move them.
+            Drag files from your computer or drop folders onto header paths to
+            move them.
           </div>
         )}
       </div>
 
-      {/* Create Folder Modal */}
       <CreateFolderModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}

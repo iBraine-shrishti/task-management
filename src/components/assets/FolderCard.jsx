@@ -31,7 +31,6 @@ export default function FolderCard({
   const [showSuccess, setShowSuccess] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
 
-  // Folder styling by type
   const getFolderTheme = (type) => {
     switch (type) {
       case "BY_CLIENT":
@@ -45,7 +44,6 @@ export default function FolderCard({
 
   const theme = getFolderTheme(folder.type);
 
-  // Direct File Upload into Folder
   const handleFileUpload = (files) => {
     if (!files || files.length === 0) return;
     const count = files.length;
@@ -56,7 +54,6 @@ export default function FolderCard({
     }
   };
 
-  // Drag & Drop Handlers
   const handleDragStart = (e) => {
     e.dataTransfer.setData(
       "application/json",
@@ -67,7 +64,7 @@ export default function FolderCard({
 
   const handleDragOver = (e) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = "copy";
+    e.dataTransfer.dropEffect = "move";
     if (!isDragOver) setIsDragOver(true);
   };
 
@@ -90,9 +87,7 @@ export default function FolderCard({
           onMoveFolder(parsed.id, folder.id);
           return;
         }
-      } catch (err) {
-        // Fallback for third-party desktop files
-      }
+      } catch (err) {}
     }
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
@@ -116,7 +111,6 @@ export default function FolderCard({
             : "hover:bg-slate-200/60"
       }`}
     >
-      {/* Hidden File Input */}
       <input
         type="file"
         ref={fileInputRef}
@@ -128,7 +122,6 @@ export default function FolderCard({
         className="hidden"
       />
 
-      {/* QUICK SELECTION CHECKBOX */}
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -144,7 +137,6 @@ export default function FolderCard({
         {isSelected && <Check size={12} strokeWidth={3} />}
       </div>
 
-      {/* COMPLETE DRIVE HOVER ACTION BAR WITH ICON + UPLOAD TEXT */}
       <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center gap-1 bg-white/95 backdrop-blur-md p-1 rounded-lg border border-slate-200/90 shadow-md z-20">
         {!isReadOnly && (
           <button
@@ -160,7 +152,6 @@ export default function FolderCard({
           </button>
         )}
 
-        {/* DOWNLOAD ACTION */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -174,7 +165,6 @@ export default function FolderCard({
           <Download size={13} />
         </button>
 
-        {/* COPY ACTION */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -214,29 +204,26 @@ export default function FolderCard({
         )}
       </div>
 
-      {/* Drag Indicator */}
       {!folder.isSystem && !isSelected && (
         <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-40 transition-opacity">
           <Move size={12} className="text-slate-400" />
         </div>
       )}
 
-      {/* Big Folder Icon */}
       <div className="relative my-1 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-150">
         <Folder
           size={96}
           className={`${theme.iconColor} stroke-[1.2] drop-shadow-md`}
         />
 
-        {/* Success Indicator */}
         {showSuccess && (
-          <div className="absolute inset-0 flex items-center justify-center bg-emerald-600/90 text-white rounded-xl backdrop-blur-xs animate-fade-in">
+          <div className="absolute inset-0 flex items-center justify-center bg-emerald-600/90 text-white rounded-xl backdrop-blur-xs">
             <CheckCircle2 size={28} />
           </div>
         )}
       </div>
 
-      {/* Folder Name */}
+      {/* FULL NAME DISPLAY (NO TRUNCATION) */}
       <div className="w-full text-center mt-1 px-1">
         {editingFolderId === folder.id ? (
           <input
@@ -251,7 +238,7 @@ export default function FolderCard({
           />
         ) : (
           <p
-            className="text-xs font-semibold text-slate-800 tracking-tight leading-tight line-clamp-2 group-hover:text-blue-600 transition"
+            className="text-xs font-semibold text-slate-800 tracking-tight leading-normal break-words group-hover:text-blue-600 transition"
             title={folder.name}
           >
             {folder.name}
