@@ -1,0 +1,121 @@
+export const projectsData = [
+  {
+    id: "proj-reebok",
+    name: "Reebok",
+    category: "Performance Ads & Strategy",
+    teamName: "Social Media & Performance",
+    head: "Dharmendra Morya",
+    headRole: "Performance Lead",
+    assignedEmployees: 6,
+    status: "In Progress",
+    dueDate: "2026-09-25",
+    priority: "High",
+    deliverablesCount: 45,
+    vaultPath: "FOR_CLIENT/Reebok_Ad_Creatives",
+    description:
+      "Meta/Google Ads performance campaigns, monthly analytics, and social strategy.",
+    members: [
+      { name: "Dharmendra Morya", role: "Performance Lead" },
+      { name: "Aarav Mehta", role: "Media Buyer" },
+      { name: "Riya Sen", role: "Copywriter" },
+    ],
+    deliverables: [
+      {
+        id: "del-1",
+        name: "Summer Campaign Paid Ads",
+        type: "Meta & Google Ads",
+        status: "In Progress",
+      },
+      {
+        id: "del-2",
+        name: "Monthly Performance Report",
+        type: "Analytics",
+        status: "Completed",
+      },
+    ],
+  },
+  {
+    id: "proj-jewellers",
+    name: "Kalyan Jewellers",
+    category: "Weekly Posts & Reels Retainer",
+    teamName: "Creatives & Design",
+    head: "Ananya Sharma",
+    headRole: "Art Director",
+    assignedEmployees: 5,
+    status: "Completed",
+    dueDate: "2026-09-15",
+    priority: "Medium",
+    deliverablesCount: 108,
+    vaultPath: "FOR_CLIENT/Jewelry_Posts_Vault",
+    description:
+      "High-end visual graphics, festive campaign designs, and Instagram reels.",
+    members: [
+      { name: "Ananya Sharma", role: "Art Director" },
+      { name: "Neha Gupta", role: "Graphic Designer" },
+    ],
+    deliverables: [
+      {
+        id: "del-4",
+        name: "Festive Gold Collection Reels (x8)",
+        type: "Video Edit",
+        status: "Completed",
+      },
+    ],
+  },
+  {
+    id: "proj-techcorp",
+    name: "TechCorp Global",
+    category: "E-Commerce Web Dev",
+    teamName: "Development Team",
+    head: "Sujal Rane",
+    headRole: "Technical Director",
+    assignedEmployees: 8,
+    status: "In Progress",
+    dueDate: "2026-09-18",
+    priority: "High",
+    deliverablesCount: 14,
+    vaultPath: "BY_CLIENT/TechCorp_Assets",
+    description:
+      "Custom web platform development, API integration, and performance optimization.",
+    members: [
+      { name: "Sujal Rane", role: "Technical Director" },
+      { name: "Rahul Deshmukh", role: "Full Stack Dev" },
+    ],
+    deliverables: [
+      {
+        id: "del-7",
+        name: "Custom E-Commerce Portal Build",
+        type: "Web App",
+        status: "In Progress",
+      },
+    ],
+  },
+  {
+    id: "proj-logistics",
+    name: "Logistics Co",
+    category: "App & Live Location Tracker",
+    teamName: "Development Team",
+    head: "Sujal Rane",
+    headRole: "Technical Director",
+    assignedEmployees: 4,
+    status: "In Progress",
+    dueDate: "2026-10-10",
+    priority: "Low",
+    deliverablesCount: 28,
+    vaultPath: "FOR_CLIENT/Logistics_App_Build",
+    description:
+      "Driver tracking cross-platform mobile application and dispatcher dashboard.",
+    members: [
+      { name: "Sujal Rane", role: "Technical Director" },
+      { name: "Gaurav Taneja", role: "Mobile Dev" },
+    ],
+    deliverables: [
+      {
+        id: "del-10",
+        name: "Driver Location Tracking API",
+        type: "Mobile App",
+        status: "In Progress",
+      },
+    ],
+  },
+];
